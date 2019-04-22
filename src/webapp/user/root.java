@@ -1,9 +1,12 @@
 package webapp.user;
 
+import org.junit.experimental.theories.Theories;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.junit.*;
 import webapp.*;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 
@@ -40,6 +43,25 @@ public class root{
         //Maximise window
         driver.manage().window().maximize();
         FindElements.clickAllLinks(driver);
+    }
+
+    @Test
+    public void Query() throws InterruptedException {
+        driver.get("http://localhost:8080/");
+        //Maximise window
+        driver.manage().window().maximize();
+
+        driver.switchTo().frame(driver.findElement(By.tagName("iframe")));
+        WebElement queryInput = driver.findElement(By.id("query"));
+        queryInput.sendKeys("I have a question.\n");
+
+        List<WebElement> chatResult = driver.findElements(By.xpath("//td[@id='result']/div"));
+
+        for(WebElement childDiv : chatResult){
+            Thread.sleep(500);
+            System.out.println(childDiv.getText());
+        }
+        assert(chatResult.size() == 2);
     }
 
     @AfterClass

@@ -43,6 +43,7 @@ public class home{
         //Minimise window to very small
         Dimension d = new Dimension (300,300);
         driver.manage().window().setSize(d);
+        driver.manage().window().maximize();
 
         //Assert page loads completely / link works
         assertEquals(driver.getTitle(), "ACNAPI - Admin Home");

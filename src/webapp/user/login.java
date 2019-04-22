@@ -6,6 +6,8 @@ import org.junit.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import webapp.*;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.*;
 
@@ -46,7 +48,10 @@ public class login {
 
     @Test
     public void Login() throws InterruptedException {
+        //Maximise window
+        driver.manage().window().maximize();
         driver.get("http://localhost:8080/login");
+
         WebElement usernameInput = driver.findElement(By.name("username"));
         usernameInput.sendKeys("d");
         WebElement passwordInput = driver.findElement(By.name("password"));

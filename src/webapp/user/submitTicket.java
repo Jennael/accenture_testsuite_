@@ -22,7 +22,7 @@ public class submitTicket {
 
     @Test
     public void TestLink(){
-        driver.get("http://localhost:8080/submitaticketuser");
+        driver.get("http://localhost:8080/submitaticket");
         System.out.println("TestLink\n");
 
         //Maximise window
@@ -37,7 +37,7 @@ public class submitTicket {
 
     @Test
     public void TestAllLinks() throws InterruptedException {
-        driver.get("http://localhost:8080/submitaticketuser");
+        driver.get("http://localhost:8080/submitaticket");
         System.out.println("TestAllLinks\n");
 
         //Maximise window
@@ -47,27 +47,42 @@ public class submitTicket {
 
     @Test
     public void Submit() throws InterruptedException {
-        driver.get("http://localhost:8080/submitaticketuser");
+        driver.get("http://localhost:8080/submitaticket");
         System.out.println("TestTicketSubmit\n");
 
+        //full name
+        WebElement nameInput = driver.findElement(By.name("full_name"));
+        nameInput.sendKeys("TestSubject");
+        //company
+        WebElement companyInput = driver.findElement(By.name("company"));
+        companyInput.sendKeys("TestSubject");
+        //email
+        WebElement emailInput = driver.findElement(By.name("email"));
+        emailInput.sendKeys("meimei_tay@mymail.sutd.edu.sg");
+        //phone number
+        WebElement phoneInput = driver.findElement(By.name("phone"));
+        phoneInput.sendKeys("00000000");
         //subject
         WebElement subjectInput = driver.findElement(By.name("subject"));
-        subjectInput.sendKeys("TestSubject");
+        subjectInput.sendKeys("TestMessage");
         //category
         Select categoryInput = new Select(driver.findElement(By.name("category")));
         categoryInput.selectByVisibleText("APIs");
+        //image
+        //WebElement imageInput = driver.findElement(By.name("image"));
+        //imageInput.sendKeys("D:\\Root\\Documents\\IJ\\accenture_testsuite\\src\\webapp\\testImage.png");
         //message
         WebElement messageInput = driver.findElement(By.name("message"));
         messageInput.sendKeys("TestMessage");
-        //image
-        WebElement imageInput = driver.findElement(By.name("image"));
-        imageInput.sendKeys("D:\\Root\\Documents\\IJ\\accenture_testsuite\\src\\webapp\\testImage.png");
         //submit
         WebElement submitButton = driver.findElement(By.className("btn-form"));
         submitButton.click();
 
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.className("hero-text-box"))));
+        Thread.sleep(2000);
+
+        String alertText = driver.switchTo().alert().getText();
+        driver.switchTo().alert().accept();
+        assertEquals(alertText, "Ticket submitted!");
     }
 
     @AfterClass

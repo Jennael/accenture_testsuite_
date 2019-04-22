@@ -1,0 +1,5 @@
+D:\Root\Documents\ISTD5\50.003\accenture-ticketing-project\Ticket-system-accenture
+
+yarn run webpack-dev-server
+
+yarn run nodemon server/index.js
